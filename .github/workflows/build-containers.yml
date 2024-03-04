@@ -8,11 +8,6 @@ on:
     tags:
       - v*
 
-env:
-  REGISTRY: ghcr.io
-  PHP_CONTAINER_TAG: 7.4-4.33.4
-  NGINX_CONTAINER_TAG: 1.25-5.34.2
-
 jobs:
   build-and-push:
     name: Build and Push
@@ -25,11 +20,12 @@ jobs:
       matrix:
         include:
           - container-name: php
-            base-tag: ${{ env.PHP_CONTAINER_TAG }}
+            base-tag: 7.4-4.33.4
           - container-name: nginx
-            base-tag: ${{ env.NGINX_CONTAINER_TAG }}
+            base-tag: 1.25-5.34.2
 
     env:
+      REGISTRY: ghcr.io
       CONTAINER_NAME: ${{ github.repository }}/${{ matrix.container-name }}
       BASE_CONTAINER_TAG: ${{ matrix.base-tag }}
 
